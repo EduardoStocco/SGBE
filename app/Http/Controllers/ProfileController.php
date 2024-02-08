@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
+use App\Models\Disciplina;
+
 class ProfileController extends Controller
 {
     /**
@@ -16,8 +18,11 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $disciplinas = Disciplina::all(); // Carrega todas as disciplinas
+
         return view('profile.edit', [
             'user' => $request->user(),
+            'disciplinas' => $disciplinas, // Passa as disciplinas para a view
         ]);
     }
 
@@ -26,14 +31,20 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user = $request->user();
+        $user->fill($request->validated());
+    
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
-
-        $request->user()->save();
-
+    
+        $user->save();
+    
+        // Sincroniza as disciplinas se o usuário for um professor
+        if ($user->role === 'professor') {
+            $user->disciplinas()->sync($request->input('disciplinas', []));
+        }
+    
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 

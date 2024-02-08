@@ -13,14 +13,17 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
+use App\Models\Disciplina;
+
 class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function create()
     {
-        return view('auth.register');
+        $disciplinas = Disciplina::all(); // Busca todas as disciplinas
+        return view('auth.register', compact('disciplinas'));
     }
 
     /**
@@ -34,17 +37,25 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['required', 'string', 'in:aluno,professor'], // Valida o novo campo
+            'disciplinas' => ['nullable', 'exists:disciplinas,id'], // Validação para disciplinas
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role,
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
+
+        // Associa as disciplinas selecionadas ao usuário
+        if ($request->has('disciplinas')) {
+            $user->disciplinas()->sync($request->disciplinas);
+        }
 
         return redirect(RouteServiceProvider::HOME);
     }

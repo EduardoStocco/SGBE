@@ -2,6 +2,25 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        <!-- CAMPO SELECT -->
+
+        <div>
+            <label for="role">Eu sou:</label>
+            <select name="role" required>
+                <option value="aluno">Aluno</option>
+                <option value="professor">Professor</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="disciplinas">Disciplinas</label>
+            <select name="disciplinas[]" id="disciplinas" multiple>
+                @foreach($disciplinas as $disciplina)
+                    <option value="{{ $disciplina->id }}">{{ $disciplina->nome }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />

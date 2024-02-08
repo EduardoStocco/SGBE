@@ -15,9 +15,20 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+            'email' => [
+                'required', 'string', 'email', 'max:255', 
+                Rule::unique(User::class)->ignore($this->user()->id)
+            ],
         ];
-    }
+    
+        // Adicionando validação condicional para professores
+        if ($this->user()->role === 'professor') {
+            $rules['disciplinas'] = ['nullable', 'array'];
+            $rules['disciplinas.*'] = ['exists:disciplinas,id'];
+        }
+    
+        return $rules;
+    }    
 }

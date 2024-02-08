@@ -12,6 +12,22 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function isProfessor(): bool
+    {
+        return $this->role === 'professor';
+    }
+
+    public function isAluno(): bool
+    {
+        return $this->role === 'aluno';
+    }
+
+    // relacionamento com disciplinas (tabela pivot)
+    public function disciplinas()
+    {
+        return $this->belongsToMany(Disciplina::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +37,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
