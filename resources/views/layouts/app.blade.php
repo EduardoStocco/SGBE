@@ -28,8 +28,8 @@
             @endif
 
             <!-- Page Content -->
-            <main>
-                @yield('content')
+            <main class="max-w-7xl w-full mx-auto px-2 sm:px-6 flex">
+                {{ $slot }}
             </main>
         </div>
     </body>

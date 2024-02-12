@@ -11,10 +11,8 @@ class DisciplinaController extends Controller
     // Exibe as disciplinas do professor
     public function index()
     {
-/*         $user = auth()->user();
-        $disciplinas = $user->isProfessor() ? $user->disciplinas : collect(); */
-
-        $disciplinas = Disciplina::all();
+        $user = auth()->user();
+        $disciplinas = $user->isProfessor() ? $user->disciplinas : collect();
 
         return view('disciplinas.index', compact('disciplinas'));
     }

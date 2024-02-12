@@ -10,7 +10,22 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;     
+    
+    public function periodicos()
+    {
+        return $this->hasMany(Periodico::class);
+    }
+
+    public function emprestimosAtivos()
+    {
+        return $this->emprestimos()->whereNull('data_devolucao')->get();
+    }
+
+    public function emprestimos()
+    {
+        return $this->hasMany(Emprestimo::class);
+    }
 
     public function isProfessor(): bool
     {

@@ -12,13 +12,16 @@
             </select>
         </div>
 
-        <div>
-            <label for="disciplinas">Disciplinas</label>
-            <select name="disciplinas[]" id="disciplinas" multiple>
-                @foreach($disciplinas as $disciplina)
-                    <option value="{{ $disciplina->id }}">{{ $disciplina->nome }}</option>
-                @endforeach
-            </select>
+        <div class="form-group">
+            <label for="disciplinas">Disciplinas Associadas:</label>
+            @foreach ($disciplinas as $disciplina)
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="{{ $disciplina->id }}" name="disciplinas[]" id="disciplina_{{ $disciplina->id }}">
+                    <label class="form-check-label" for="disciplina_{{ $disciplina->id }}">
+                        {{ $disciplina->nome }}
+                    </label>
+                </div>
+            @endforeach
         </div>
 
         <!-- Name -->
