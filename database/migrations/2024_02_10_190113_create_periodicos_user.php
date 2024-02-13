@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('periodico_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->date('data_inicio_assinatura');
+            $table->date('data_inicio_assinatura')->nullable();
             $table->date('data_fim_assinatura')->nullable(); // Se for nulo, a assinatura está ativa
             $table->timestamps();
         });

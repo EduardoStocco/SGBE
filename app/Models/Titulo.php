@@ -7,20 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Titulo extends Model
 {
-    use HasFactory;
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::saving(function ($titulo) {
-            if ($titulo->num_exemplares < 1) {
-                $titulo->disponivel = false;
-            } else {
-                $titulo->disponivel = true;
-            }
-        });
-    }
+    use HasFactory;  
 
     protected $fillable = [
         'nome', 'tipo', 'descricao', 'num_exemplares', 'periodo_maximo_emprestimo', 'disponivel'
@@ -35,5 +22,4 @@ class Titulo extends Model
     {
         return $this->belongsToMany(Disciplina::class, 'disciplina_titulo');
     }
-
 }

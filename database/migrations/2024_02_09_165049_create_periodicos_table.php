@@ -16,8 +16,6 @@ return new class extends Migration
             $table->string('nome');
             $table->string('tipo'); // Ex: revista, jornal
             $table->text('descricao')->nullable();
-            $table->date('data_inicio_assinatura')->nullable();
-            $table->date('data_fim_assinatura')->nullable(); // Se for nulo, a assinatura está ativa
             $table->timestamps();
         });
     }

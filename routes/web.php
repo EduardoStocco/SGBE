@@ -53,9 +53,20 @@ Route::get('/emprestimos', [EmprestimoController::class, 'index'])->name('empres
 Route::resource('emprestimos', EmprestimoController::class);
 
 Route::post('/emprestimos/devolver/{id}', [EmprestimoController::class, 'devolver'])->name('emprestimos.devolver');
+Route::post('/emprestimos/create', [EmprestimoController::class, 'store'])->name('emprestimos.create');
+
+Route::post('/emprestimos/{id}/pagar-multa', [EmprestimoController::class, 'pagarMulta'])->name('emprestimos.pagarMulta');
+
+Route::get('/emprestimos/expirados', [EmprestimoController::class, 'emprestimosExpirados'])->name('emprestimos.expirados');
+
+Route::post('/emprestimos/{id}/perdido', [EmprestimoController::class, 'marcarComoPerdido'])->name('emprestimos.perdido');
 
 // Rotas para Periódicos
 Route::resource('periodicos', PeriodicoController::class);
+
+Route::post('/periodicos/{periodico}/ativar', [PeriodicoController::class, 'ativarAssinatura'])->name('periodicos.ativar');
+Route::post('/periodicos/{periodico}/cancelar', [PeriodicoController::class, 'cancelarAssinatura'])->name('periodicos.cancelar');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

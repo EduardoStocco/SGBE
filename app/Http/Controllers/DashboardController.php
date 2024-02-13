@@ -98,7 +98,7 @@ class DashboardController extends Controller
         $resultados = $titulosReservados->merge($periodicosReservados);
     
         return $resultados;
-    }    
+    }
 
     public function index()
     {

@@ -10,7 +10,12 @@ class Emprestimo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titulo_id', 'user_id', 'data_emprestimo', 'data_prevista_devolucao', 'data_devolucao', 'multa'];
+    public function registrarPagamentoMulta() {
+        $this->multa_paga = true;
+        $this->save();
+    }
+
+    protected $fillable = ['titulo_id', 'user_id', 'data_emprestimo', 'data_prevista_devolucao', 'data_devolucao', 'multa', 'multa_paga'];
 
     public function calcularMulta() {
         $data_devolucao = $this->data_devolucao ? Carbon::parse($this->data_devolucao) : now();
@@ -18,7 +23,7 @@ class Emprestimo extends Model
     
         if ($data_devolucao->gt($data_prevista_devolucao)) {
             $dias_de_atraso = $data_devolucao->diffInDays($data_prevista_devolucao);
-            $valor_da_multa_por_dia = 1.00; // Defina o valor da multa por dia de atraso
+            $valor_da_multa_por_dia = 1.00;
             return $dias_de_atraso * $valor_da_multa_por_dia;
         }
     

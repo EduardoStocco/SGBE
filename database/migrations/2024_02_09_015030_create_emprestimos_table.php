@@ -19,6 +19,8 @@ return new class extends Migration
             $table->date('data_prevista_devolucao');
             $table->date('data_devolucao')->nullable();
             $table->decimal('multa', 8, 2)->default(0);
+            $table->boolean('multa_paga')->nullable();
+            $table->boolean('perdido')->default(false);
             $table->timestamps();
         });
     }

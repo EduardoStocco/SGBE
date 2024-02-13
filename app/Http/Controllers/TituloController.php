@@ -12,7 +12,9 @@ class TituloController extends Controller
     public function index()
     {
         $titulos = Titulo::where('disponivel', true)->get();
-        return view('titulos.index', compact('titulos'));
+        $titulosIndisponiveis = Titulo::where('disponivel', false)->get();
+
+        return view('titulos.index', compact('titulos', 'titulosIndisponiveis'));
     }
 
     public function store(Request $request)
@@ -74,12 +76,8 @@ class TituloController extends Controller
 
     public function create()
     {
-        // Opcional: Se títulos estão associados a disciplinas, você pode querer listar as disciplinas disponíveis
-        // para que o usuário possa selecioná-las ao criar um título. Isso depende do seu design e requisitos específicos.
         $disciplinas = Disciplina::all();
 
-        // Retorna a view que contém o formulário de criação de um novo título.
-        // Passa as disciplinas para a view, se necessário.
         return view('titulos.create', compact('disciplinas'));
     }
 }

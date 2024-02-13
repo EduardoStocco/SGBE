@@ -9,8 +9,6 @@ class Disciplina extends Model
 {
     use HasFactory;
 
-    // Em App\Models\Disciplina.php
-
     public function reservarTitulo(Titulo $titulo) {
         $this->titulos()->attach($titulo->id, ['reservado' => true]);
     }

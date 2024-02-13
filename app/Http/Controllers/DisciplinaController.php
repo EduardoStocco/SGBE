@@ -12,7 +12,7 @@ class DisciplinaController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $disciplinas = $user->isProfessor() ? $user->disciplinas : collect();
+        $disciplinas = $user->disciplinas;
 
         return view('disciplinas.index', compact('disciplinas'));
     }

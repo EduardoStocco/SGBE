@@ -7,7 +7,7 @@
     
     @if(Auth::user()->isProfessor())
     <div class="w-full py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-4">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-2">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("Olá, Professor! Você está logado.") }}                
@@ -15,10 +15,12 @@
             </div>
         </div>
 
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-2">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h3>Títulos reservados para suas disciplinas:</h3>
+                    <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
+                        Títulos reservados para suas disciplinas:
+                    </h3>
                     <table class="table table-bordered w-full border">
                         <thead>
                             <tr>
@@ -39,7 +41,7 @@
                                 <td class="text-center border border-gray-300">
                                     <form action="{{ route('tornar.publico', $titulo->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit">Tornar Público Novamente</button>
+                                        <button type="submit" class="border border-blue-500 px-4 rounded">Tornar Público Novamente</button>
                                     </form>
                                 </td>
                             </tr>
@@ -49,11 +51,12 @@
                 </div>
             </div>      
         </div>
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-2">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h3>Lista de Títulos:</h3>
-
+                    <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
+                        Lista de Títulos:
+                    </h3>
                     <table class="table table-bordered w-full border">
                         <thead>
                             <tr>
@@ -84,7 +87,7 @@
                                 <td class="text-center border border-gray-300">
                                     <form action="{{ route('reservar.titulo', $titulo->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit">Reservar</button>
+                                        <button type="submit" class="border border-blue-500 px-4 rounded">Reservar</button>
                                     </form>
                                 </td>
                             </tr>
@@ -94,20 +97,20 @@
                 </div>
             </div>      
         </div>
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-2">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h3>Lista de Periódicos:</h3>
+                <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
+                    Lista de Periódicos:
+                </h3>
                     <table class="table table-bordered w-full border">
                         <thead>
                             <tr>
                                 <th class="text-center border border-gray-300">Nome</th>
                                 <th class="text-center border border-gray-300">Tipo</th>
                                 <th class="text-center border border-gray-300">Descrição</th>
-                                <th class="text-center border border-gray-300">Ínicio da Assinatura</th>
-                                <th class="text-center border border-gray-300">Fim da Assinatura</th>
-                                <th class="text-center border border-gray-300">Ações</th>
                                 <th class="text-center border border-gray-300">Disciplina(s)</th>
+                                <th class="text-center border border-gray-300">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -116,18 +119,16 @@
                                 <td class="text-center border border-gray-300">{{ $periodico->nome }}</td>
                                 <td class="text-center border border-gray-300">{{ $periodico->tipo }}</td>
                                 <td class="text-center border border-gray-300">{{ $periodico->descricao }}</td>
-                                <td class="text-center border border-gray-300">{{ $periodico->data_inicio_assinatura }}</td>
-                                <td class="text-center border border-gray-300">{{ $periodico->data_fim_assinatura }}</td>
-                                <td class="text-center border border-gray-300">
-                                    <form action="{{ route('reservar.periodico', $periodico->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit">Reservar</button>
-                                    </form>              
-                                </td>
                                 <td class="text-center border border-gray-300">
                                     @foreach ($periodico->disciplinas as $disciplina)
                                         {{ $disciplina->nome }};<br>
                                     @endforeach
+                                </td>
+                                <td class="text-center border border-gray-300">
+                                    <form action="{{ route('reservar.periodico', $periodico->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="border border-blue-500 px-4 rounded">Reservar</button>
+                                    </form>              
                                 </td>
                             </tr>
                             @endforeach
@@ -154,7 +155,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h3>Títulos recomendados para suas disciplinas:</h3>
+                    <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
+                    Títulos recomendados para suas disciplinas:
+                    </h3>
                     <table class="table table-bordered w-full border">
                         <thead>
                             <tr>

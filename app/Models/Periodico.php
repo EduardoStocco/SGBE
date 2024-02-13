@@ -9,22 +9,14 @@ class Periodico extends Model
 {
     use HasFactory;
 
-    // Em App\Models\Periodico.php
-
-    public function ativarAssinatura() {
-        $this->ativo = true;
-        $this->save();
-    }
-
-    public function cancelarAssinatura() {
-        $this->ativo = false;
-        $this->save();
-    }
-
-
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'periodicos_user');
     }
 
     public function disciplinas()
@@ -32,6 +24,6 @@ class Periodico extends Model
         return $this->belongsToMany(Disciplina::class, 'disciplina_periodico');
     }
 
-    protected $fillable = ['nome', 'tipo', 'descricao', 'data_inicio_assinatura', 'data_fim_assinatura'];
+    protected $fillable = ['nome', 'tipo', 'descricao'];
 
 }
