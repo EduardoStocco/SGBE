@@ -13,7 +13,7 @@ Node.js e NPM
 **Clonar o Repositório**<br>
 Clone o repositório do GitHub para o seu ambiente local usando:
 
-        git clone https://github.com/EduardoStocco/SGBE
+        git clone https://github.com/EduardoStocco/SGBE.git
         cd <DIRETORIO_DO_PROJETO>
 
 **Instalar Dependências do Composer**<br>
